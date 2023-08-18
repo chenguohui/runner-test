@@ -15,9 +15,9 @@ jobs:
     runs-on: self-hosted
     env:
       DOTNET_INSTALL_DIR: "~/_dotnetsdk"
-    defaults:
-      run:
-        working-directory: _work/
+    # defaults:
+    #   run:
+    #     working-directory: _work/
 
     steps:
     - uses: actions/checkout@v3
@@ -26,7 +26,7 @@ jobs:
       with:
         dotnet-version: 6.0.121
         cache: true
-        cache-dependency-path: '_work/package-lock.json'
+        cache-dependency-path: subdir/package-lock.json
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
