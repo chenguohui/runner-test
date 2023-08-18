@@ -25,7 +25,7 @@ jobs:
       uses: chenguohui/setup-dotnet@add-loongarch64
       with:
         dotnet-version: 6.0.121
-        cache: 'dotnet'
+        cache: true
         # cache-dependency-path: subdir/package-lock.json
     - name: Restore dependencies
       run: dotnet restore
