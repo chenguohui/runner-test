@@ -27,7 +27,7 @@ jobs:
       with:
         dotnet-version: 6.0.121
         cache: true
-        cache-dependency-path: subdir/package-lock.json
+        cache-dependency-path: '**/package-lock.json'
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
