@@ -18,7 +18,7 @@ jobs:
       # NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: chenguohui/checkout@v3-node20
     - name: Setup .NET
       uses: chenguohui/setup-dotnet@add-loongarch64
       with:
