@@ -20,7 +20,7 @@ jobs:
     steps:
     - uses: chenguohui/checkout@v3-node20
     - name: Setup .NET
-      uses: chenguohui/setup-dotnet@add-loongarch64
+      uses: chenguohui/setup-dotnet@node20
       with:
         dotnet-version: 6.0.121
         # cache-dependency-path: '**/package-lock.json'
