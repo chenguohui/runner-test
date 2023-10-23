@@ -14,7 +14,7 @@ jobs:
 
     runs-on: self-hosted
     env:
-      DOTNET_INSTALL_DIR: "~/_dotnetsdk"
+      DOTNET_INSTALL_DIR: "~/_dotnetsdk/6.0.123"
       # NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
 
     steps:
@@ -22,7 +22,7 @@ jobs:
     - name: Setup .NET
       uses: chenguohui/setup-dotnet@node20
       with:
-        dotnet-version: 6.0.121
+        dotnet-version: 6.0.123
         # cache-dependency-path: '**/package-lock.json'
     - name: Restore dependencies
       run: dotnet restore
