@@ -5,9 +5,7 @@ name: .NET
 
 on:
   push:
-    branches: [ $default-branch ]
-  pull_request:
-    branches: [ $default-branch ]
+    branches: [ dotnet-demo ]
 
 jobs:
   build:
