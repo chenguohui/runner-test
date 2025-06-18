@@ -3,6 +3,7 @@ run-name: ${{ github.actor }} is testing out GitHub Actions Cache
 on: [push]
 jobs:
   example-job:
+    runs-on: ubuntu-latest
     steps:
       - name: Cache node modules
         uses: actions/cache@v4
