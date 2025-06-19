@@ -1,0 +1,29 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: Build .NET from VMR
+
+on:
+  push:
+    branches: [ "build-dotnet" ]
+  pull_request:
+    branches: [ "build-dotnet" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: chenguohui/dotnet@v10.0.0-preview.5.25277.114+loong
+      # with:
+      #   dotnet-version: 8.0.x
+    - name: Prep the source to build on your distro.
+      # This downloads a .NET SDK and a number of .NET packages needed to build .NET from source.
+      run: ./prep-source-build.sh
+    - name: Build the .NET SDK
+      run: ./build.sh -sb --clean-while-building
+    # - name: Test
+    #   run: dotnet test --no-build --verbosity normal
