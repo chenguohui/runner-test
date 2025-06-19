@@ -5,9 +5,9 @@ name: Build .NET from VMR
 
 on:
   push:
-    branches: [ "build-dotnet" ]
+    branches: [ "v10.0.0-preview.5.25277.114+loong" ]
   pull_request:
-    branches: [ "build-dotnet" ]
+    branches: [ "v10.0.0-preview.5.25277.114+loong" ]
 
 jobs:
   build:
@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
-      uses: chenguohui/dotnet@v10.0.0-preview.5.25277.114+loong
+      # uses: chenguohui/dotnet@v10.0.0-preview.5.25277.114+loong
       # with:
       #   dotnet-version: 8.0.x
     - name: Prep the source to build on your distro.
