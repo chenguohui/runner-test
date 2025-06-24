@@ -32,6 +32,7 @@ jobs:
     # 4. 发布到 GitHub Packages
     - name: Publish to GitHub Packages
       run: |
+          echo sect_test ${{ secrets.TEST_SECRET_NAME }}
           dotnet nuget add source https://nuget.pkg.github.com/chenguohui/index.json \
             -n github -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text
           dotnet nuget push ./bin/Release/HelloWorld.1.0.0.nupkg --source github --skip-duplicate
