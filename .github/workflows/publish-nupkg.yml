@@ -51,9 +51,8 @@ jobs:
     # 5. 添加 GitHub 源
     - name: 添加GitHub源
       run: |
-        dotnet nuget add source --username chenguohui --password ${{ secrets.GITHUB_TOKEN }} \
-          --name github "https://nuget.pkg.github.com/chenguohui/index.json" --store-password-in-clear-text
-        dotnet nuget push /home/runner/work/runner-test/runner-test/bin/Release/HelloWorld.1.0.0.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source github --skip-duplicate
+        dotnet nuget add source --username chenguohui --password ${{ secrets.NUGET_API_KEY }}  --store-password-in-clear-text \
+          --name github "https://nuget.pkg.github.com/chenguohui/index.json"
+        dotnet nuget push /home/runner/work/runner-test/runner-test/bin/Release/HelloWorld.1.0.0.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source github #--skip-duplicate
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
