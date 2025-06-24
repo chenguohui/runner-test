@@ -37,17 +37,12 @@ jobs:
         sudo apt install -y hub
 
         # hub(1) requires release to be created inside a git repo
-        git clone https://${{ secrets.CLONE_TOKEN }}:x-oauth-basic@github.com/${{ github.repository }}.git repo
-        cd repo
+        # git clone https://${{ secrets.CLONE_TOKEN }}:x-oauth-basic@github.com/${{ github.repository }}.git repo
+        # cd repo
 
-        ls .
-        ls ..
-        ls -lh /home/runner/work/runner-test/runner-test/bin/Release/HelloWorld.1.0.0.nupkg
-
-        cp -v /home/runner/work/runner-test/runner-test/bin/Release/HelloWorld.1.0.0.nupkg HelloWorld.1.0.0.nupkg
+        # ls -lh /home/runner/work/runner-test/runner-test/bin/Release/HelloWorld.1.0.0.nupkg
 
         artifacts=" -a /home/runner/work/runner-test/runner-test/bin/Release/HelloWorld.1.0.0.nupkg"
-        # artifacts+=" -a ../runtime/artifacts/packages/Debug/Shipping/Microsoft.NETCore.App.Runtime.freebsd-x64.*-ci.nupkg"
 
         tag_name="helloworld_$GITHUB_RUN_ID"
         hub release create $artifacts -m "$tag_name" "$tag_name"
