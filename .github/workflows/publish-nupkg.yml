@@ -42,7 +42,9 @@ jobs:
         ls ..
         ls -lh /home/runner/work/runner-test/runner-test/bin/Release/HelloWorld.1.0.0.nupkg
 
-        artifacts=" -a /home/runner/work/runner-test/runner-test/bin/Release/HelloWorld.1.0.0.nupkg"
+        cp -v /home/runner/work/runner-test/runner-test/bin/Release/HelloWorld.1.0.0.nupkg HelloWorld.1.0.0.nupkg
+
+        artifacts=" -a HelloWorld.1.0.0.nupkg"
         # artifacts+=" -a ../runtime/artifacts/packages/Debug/Shipping/Microsoft.NETCore.App.Runtime.freebsd-x64.*-ci.nupkg"
 
         tag_name="helloworld_$GITHUB_RUN_ID"
