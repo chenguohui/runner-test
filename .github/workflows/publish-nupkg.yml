@@ -38,6 +38,8 @@ jobs:
         git clone https://${{ secrets.CLONE_TOKEN }}:x-oauth-basic@github.com/${{ github.repository }}.git repo
         cd repo
 
+        echo pwd=$PWD
+
         artifacts=" -a ../runner-test/bin/Release/HelloWorld.1.0.0.nupkg"
         # artifacts+=" -a ../runtime/artifacts/packages/Debug/Shipping/Microsoft.NETCore.App.Runtime.freebsd-x64.*-ci.nupkg"
 
