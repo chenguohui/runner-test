@@ -1,0 +1,38 @@
+name: Publish HelloWorld NuGet
+
+on:
+  push:
+    branches: [ main ]  # 仅 main 分支触发
+    tags: [ 'v*' ]      # 支持版本标签触发
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. 检出代码
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. 安装 .NET SDK
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0.x  # 指定 .NET 版本
+
+      # 3. 还原依赖、编译并生成 nupkg
+      - name: Build and Pack
+        run: |
+          dotnet restore
+          dotnet build --configuration Release --no-restore
+          dotnet pack --configuration Release --no-build --output ./nupkg
+
+      # 4. 发布到 GitHub Packages
+      - name: Publish to GitHub Packages
+        run: |
+          dotnet nuget add source https://nuget.pkg.github.com/OWNER/index.json \
+            -n github -u USERNAME -p ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text
+          dotnet nuget push ./nupkg/*.nupkg --source github --skip-duplicate
+
+      # 5. （可选）发布到 NuGet.org
+      - name: Publish to NuGet Gallery
+        run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.NUGET_AUTH_TOKEN }} --source https://api.nuget.org/v3/index.json --skip-duplicate
