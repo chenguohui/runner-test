@@ -50,4 +50,4 @@ jobs:
         tag_name="helloworld_$GITHUB_RUN_ID"
         hub release create $artifacts -m "$tag_name" "$tag_name"
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.CLONE_TOKEN }}
