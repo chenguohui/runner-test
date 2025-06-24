@@ -29,10 +29,19 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
-    # 4. 发布到 GitHub Packages
-    - name: Publish to GitHub Packages
+    # 4. 发布
+    - name: Upload artifacts
       run: |
-          echo sect_test ${{ secrets.TEST_SECRET_NAME }}
-          dotnet nuget add source https://nuget.pkg.github.com/chenguohui/index.json \
-            -n github -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text
-          dotnet nuget push ./bin/Release/HelloWorld.1.0.0.nupkg --source github --skip-duplicate
+        sudo apt install -y hub
+
+        # hub(1) requires release to be created inside a git repo
+        git clone https://${{ secrets.CLONE_TOKEN }}:x-oauth-basic@github.com/${{ github.repository }}.git repo
+        cd repo
+
+        artifacts=" -a ../runner-test/bin/Release/HelloWorld.1.0.0.nupkg"
+        # artifacts+=" -a ../runtime/artifacts/packages/Debug/Shipping/Microsoft.NETCore.App.Runtime.freebsd-x64.*-ci.nupkg"
+
+        tag_name="helloworld_$GITHUB_RUN_ID"
+        hub release create $artifacts -m "$tag_name" "$tag_name"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
