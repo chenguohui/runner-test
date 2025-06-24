@@ -53,6 +53,6 @@ jobs:
       run: |
         dotnet nuget add source --username chenguohui --password ${{ secrets.NUGET_API_KEY }}  --store-password-in-clear-text \
           --name github "https://nuget.pkg.github.com/chenguohui/index.json"
-        dotnet nuget push /home/runner/work/runner-test/runner-test/bin/Release/HelloWorld.1.0.0.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source github #--skip-duplicate
+        dotnet nuget push /home/runner/work/runner-test/runner-test/bin/Release/HelloWorld.1.0.0.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source github --skip-duplicate
       env:
         NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
