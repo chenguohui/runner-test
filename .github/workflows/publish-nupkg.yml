@@ -13,6 +13,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # 允许创建 Release 和上传资源
 
     steps:
     # 1. 检出代码
@@ -44,10 +46,10 @@ jobs:
 
         cp -v /home/runner/work/runner-test/runner-test/bin/Release/HelloWorld.1.0.0.nupkg HelloWorld.1.0.0.nupkg
 
-        artifacts=" -a HelloWorld.1.0.0.nupkg"
+        artifacts=" -a /home/runner/work/runner-test/runner-test/bin/Release/HelloWorld.1.0.0.nupkg"
         # artifacts+=" -a ../runtime/artifacts/packages/Debug/Shipping/Microsoft.NETCore.App.Runtime.freebsd-x64.*-ci.nupkg"
 
         tag_name="helloworld_$GITHUB_RUN_ID"
         hub release create $artifacts -m "$tag_name" "$tag_name"
       env:
-        GITHUB_TOKEN: ${{ secrets.CLONE_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
