@@ -17,3 +17,15 @@ jobs:
         run: echo "MY_VARIABLE=HelloWorld" >> $GITHUB_ENV
       - name: Use environment variable ${{ env.MY_VARIABLE }}
         run: echo $MY_VARIABLE
+      - name: create files
+        run: |
+          echo hello > ~/hello.txt
+          echo world > ~/world.txt
+      - name: Upload files
+        uses: actions/upload-artifact@v4
+        with:
+          name: uploaded-files
+          path: |
+            ~/hello.txt
+            ~/world.txt
+   
