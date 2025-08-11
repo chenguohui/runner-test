@@ -15,5 +15,5 @@ jobs:
     steps:
       - name: Set environment variable
         run: echo "MY_VARIABLE=HelloWorld" >> $GITHUB_ENV
-      - name: Use environment variable $MY_VARIABLE
+      - name: Use environment variable ${{ GITHUB_ENV.MY_VARIABLE }} ${{ env.MY_VARIABLE }}
         run: echo $MY_VARIABLE
