@@ -1,0 +1,61 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: Build SDK Demo
+
+on:
+  workflow_dispatch:
+
+jobs:
+  example-job:
+    runs-on: self-hosted
+    steps:
+      - name: Set environment variable
+        run: |
+          echo "MY_VARIABLE=HelloWorld" >> $GITHUB_ENV
+          echo current directory $PWD
+          cd
+          echo current directory $PWD
+          git log || echo not a repo
+
+      - name: Use environment variable ${{ env.MY_VARIABLE }}
+        run: |
+          echo $MY_VARIABLE
+          echo current directory $PWD
+
+      - name: Checkout repo
+        uses: actions/checkout@v5
+        with:
+          fetch-tags: true
+
+      - name: create files
+        run: |
+          echo $PWD
+          git log 
+          echo hello > hello.txt
+          echo world > world.txt
+
+      - name: Upload files
+        uses: actions/upload-artifact@v4
+        with:
+          name: uploaded-files
+          path: |
+            hello.txt
+            world.txt
+
+      - name: Release
+        run: |
+          sudo apt install -y hub
+          # hub(1) requires release to be created inside a git repo
+          rm -rf repo
+          # git clone https://${{ secrets.CLONE_TOKEN }}:x-oauth-basic@github.com/${{ github.repository }}.git repo
+          # cd repo
+          artifacts=" -a hello.txt"
+          artifacts+=" -a world.txt"
+          tag_name="v1.1"
+          echo "tag_name: $tag_name"
+          echo "artifacts: $artifacts"
+          # docs: https://hub.github.com/hub-release.1.html
+          hub release create $artifacts --prerelease -m "$tag_name" "$tag_name"
+        env:
+          GITHUB_TOKEN: ${{ secrets.CLONE_TOKEN }}
